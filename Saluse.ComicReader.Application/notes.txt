@@ -1,0 +1,14 @@
+﻿[TODO]
+- [0] PortraitMode with VerticalPanning with mouse does not follow other modes/panning touchpad movement. It works in reverse.
+- [75] Fix multi-threaded issue when user navigates beyond what the cache fill-ahead has loaded.
+  There is a lock on the image load code that pauses the UI
+- [50] Implemented different cache managers to support limited or circular buffers
+- [0] Move all input management to its own Manager
+- [0] Move all display management to its own Manager
+- [0] Add a settings manager
+- [0] Add UI to select previously loaded comics
+- [0] Add UI to select effects
+- [0] Add dynamically loaded Effects (plugins)
+- [0] Ensure zoom works with rotation and window sizing whilst active
+- [0] Change ViewSize on progress scrollbar to display information and scale based on page total
+			- A 1000 pages currently clips the page information

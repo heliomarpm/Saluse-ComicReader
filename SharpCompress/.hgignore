@@ -1,0 +1,18 @@
+syntax: glob
+_ReSharper.SharpCompress/
+bin/
+Help/LastBuild.log
+*.user
+SharpCompress.Test/obj/
+SharpCompress/obj/
+*.suo
+NuGet/lib
+*.nupkg
+*.docstates
+Help/*
+sharpcompress.VisualState.xml
+TestResult.xml
+TestArchives/Scratch/*
+TestArchives/Scratch2/*
+packages/
+TestResults/

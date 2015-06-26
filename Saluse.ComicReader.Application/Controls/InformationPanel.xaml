@@ -1,0 +1,16 @@
+﻿<UserControl
+	x:Class="Saluse.ComicReader.Application.Controls.InformationPanel"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	mc:Ignorable="d" 
+	d:DesignHeight="300"
+	d:DesignWidth="300">
+	<Border Name="informationBorder" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="10" Background="White" Padding="20" BorderThickness="3" BorderBrush="Black" Opacity="100">
+		<Border.Effect>
+			<DropShadowEffect ShadowDepth="0" BlurRadius="25" Direction="0" Opacity="0.5"/>
+		</Border.Effect>
+		<TextBlock Name="informationTextBlock" FontFamily="DigitalStrip 2.0 BB" Foreground="Black" FontSize="22" Text="{Binding InformationText}" />
+	</Border>
+</UserControl>
