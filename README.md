@@ -1,18 +1,22 @@
-# Saluse ComicReader
+# Saluse Comic Reader
 This is a WPF application for Windows for viewing digital comics.
 
 Currently supports these file formats:
-  .cbr
-  .cbz
-  .zip
-  .rar
-  .pdf (if Ghostscript is installed)
+
+  * .cbr
+  * .cbz
+  * .zip
+  * .rar
+  * .pdf (if Ghostscript is installed)
+
   
 In addition, Saluse ComicReader will also open any folder with the following image types:
-  .jpg | .jpeg
-  .png
-  .bmp
-  .tif | .tiff
+
+  * .jpg | .jpeg
+  * .png
+  * .bmp
+  * .tif | .tiff
+
 
 ## Note
 
@@ -25,36 +29,40 @@ I'm sharing the application, there will be many refactoring and redesign to be u
 Drag and drop a supported file or any folder (with images) onto the application to start viewing.
 
 ## Key Commands
+>**W**: Toggle between Full and Windowed screen
 
-W: Toggle between Full and Windowed screen
+>**R**: Rotate between Portrait and Landscape mode [*](#rotate)
 
-R: Rotate between Portrait and Landscape mode *
+>**Z**: Toggle zoom between fitting the screen and filling screen *
 
-Z: Toggle zoom between fitting the screen and filling screen *
+>**I**: Show/Hide information about the comic and current image
 
-I: Show/Hide information about the comic and current image
+>**Right | Down | PageDown | Space**: Next image
 
-Right | Down | PageDown | Space: Next image
+>**Left | Up | PageUp | Shift-Space**: Previous image
 
-Left | Up | PageUp | Shift-Space: Previous image
+>**Home**: First image
 
-Home: First image
+>**End**: Last image
 
-End: Last image
+>**N**: Next comic/document/folder *
 
-N: Next comic/document/folder *
-
-B: Previous comic/document/folder *
-
-
-E: Next effect *
-
-Shift-E: Previous effect *
-
-Ctrl-E: Switch current effect off
+>**B**: Previous comic/document/folder *
 
 
-S: Save current image *
+>**E**: Next effect *
+
+>**Shift-E**: Previous effect *
+
+>**Ctrl-E**: Switch current effect off
 
 
-Esc: Exit application
+>**S**: Save current image *
+
+
+>**Esc**: Exit application
+
+
+## Functionality
+
+### Rotate
