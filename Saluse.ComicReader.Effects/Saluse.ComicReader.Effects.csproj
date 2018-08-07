@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <UsingTask TaskName="ShaderBuildTask.PixelShaderCompile" AssemblyName="ShaderBuildTask, Version=1.0.3072.18169, Culture=neutral, PublicKeyToken=44e467d1687af125" />
+  <!--<UsingTask TaskName="ShaderBuildTask.PixelShaderCompile" AssemblyName="ShaderBuildTask, Version=1.0.3072.18169, Culture=neutral, PublicKeyToken=44e467d1687af125" />-->
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -11,7 +11,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Saluse.ComicReader.Effects</RootNamespace>
     <AssemblyName>Saluse.ComicReader.Effects</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -33,6 +33,8 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -112,8 +114,7 @@
     <Compile Include="Test.cs" />
     <Compile Include="LoFi.cs" />
     <Compile Include="The80s.cs" />
-    <Compile Include="EffectLibrary.cs">
-    </Compile>
+    <Compile Include="EffectLibrary.cs" />
     <Compile Include="BrightnessContrastAdjust.cs" />
     <Compile Include="ExcludeEffectAttribute.cs" />
     <Compile Include="GreyScale.cs" />
@@ -121,7 +122,9 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <Effect Include="GreyScale.fx" />
+    <PixelShader Include="GreyScale.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -136,64 +139,125 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Effect Include="BrightnessContrastAdjust.fx" />
+    <PixelShader Include="BrightnessContrastAdjust.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
   </ItemGroup>
   <ItemGroup>
-    <Effect Include="ComicContrast.fx" />
+    <PixelShader Include="ComicContrast.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
   </ItemGroup>
   <ItemGroup>
-    <Effect Include="ComicContrastBW.fx" />
+    <PixelShader Include="ComicContrastBW.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
   </ItemGroup>
   <ItemGroup>
-    <Effect Include="ComicContrastBWInvert.fx" />
+    <PixelShader Include="ComicContrastBWInvert.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
   </ItemGroup>
   <ItemGroup>
-    <Effect Include="The80s.fx" />
+    <PixelShader Include="The80s.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
   </ItemGroup>
   <ItemGroup>
-    <Effect Include="LoFi.fx" />
+    <PixelShader Include="LoFi.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
   </ItemGroup>
   <ItemGroup>
-    <Effect Include="Test.fx" />
+    <PixelShader Include="Test.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
   </ItemGroup>
   <ItemGroup>
-    <Effect Include="BWHalfTone.fx" />
+    <PixelShader Include="BWHalfTone.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
   </ItemGroup>
   <ItemGroup>
-    <Effect Include="Bloom.fx" />
+    <PixelShader Include="Bloom.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
   </ItemGroup>
   <ItemGroup>
-    <Effect Include="Sharpen.fx" />
+    <PixelShader Include="Sharpen.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
   </ItemGroup>
   <ItemGroup>
-    <Effect Include="AngleGradient.fx" />
+    <PixelShader Include="AngleGradient.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
   </ItemGroup>
   <ItemGroup>
-    <Effect Include="Animated.fx" />
+    <PixelShader Include="Animated.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
   </ItemGroup>
   <ItemGroup>
-    <Effect Include="LineArt.fx" />
+    <PixelShader Include="LineArt.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
   </ItemGroup>
   <ItemGroup>
-    <Effect Include="InverseGreyScale.fx" />
+    <PixelShader Include="InverseGreyScale.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
   </ItemGroup>
   <ItemGroup>
-    <Effect Include="Devibe.fx" />
+    <PixelShader Include="Devibe.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
   </ItemGroup>
   <ItemGroup>
-    <Effect Include="Gloom.fx" />
+    <PixelShader Include="Gloom.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
   </ItemGroup>
   <ItemGroup>
-    <Effect Include="Gaussian.fx" />
+    <PixelShader Include="Gaussian.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EffectCompile" Condition="'@(Effect)' != '' ">
+  <Import Project="..\packages\Microsoft.HLSL.CSharpVB.1.0.1\build\Microsoft.HLSL.CSharpVB.targets" Condition="Exists('..\packages\Microsoft.HLSL.CSharpVB.1.0.1\build\Microsoft.HLSL.CSharpVB.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.HLSL.CSharpVB.1.0.1\build\Microsoft.HLSL.CSharpVB.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.HLSL.CSharpVB.1.0.1\build\Microsoft.HLSL.CSharpVB.targets'))" />
+  </Target>
+  <!--<Target Name="EffectCompile" Condition="'@(Effect)' != '' ">
     <PixelShaderCompile Sources="@(Effect)">
       <Output TaskParameter="Outputs" ItemName="Resource" />
     </PixelShaderCompile>
-  </Target>
-  <PropertyGroup>
-    <!-- Add effect compilation to the PrepareResourcesDependsOn so that the effect fx  get compiled before resources are collected -->
+  </Target>-->
+  <!--<PropertyGroup>
+    -->
+  <!-- Add effect compilation to the PrepareResourcesDependsOn so that the effect fx  get compiled before resources are collected -->
+  <!--
     <PrepareResourcesDependsOn>EffectCompile;$(PrepareResourcesDependsOn)</PrepareResourcesDependsOn>
-  </PropertyGroup>
+  </PropertyGroup>-->
+  <Target Name="EmbedShaders" AfterTargets="FxCompile">
+    <!-- <ItemGroup> -->
+    <!-- <_IgnoreRecursion Include="$(IgnoreRecursion)" /> -->
+    <!-- </ItemGroup> -->
+    <!-- <CreateItem Include="$(TargetDir)\**\*.*"> -->
+    <CreateItem Include="$(IntermediateOutputPath)\**\*.cso">
+      <Output TaskParameter="Include" ItemName="OutputFiles" />
+    </CreateItem>
+    <ItemGroup>
+      <EmbeddedResource Include="@(OutputFiles)">
+        <!-- <LogicalName>%(OutputFiles.DestinationSubDirectory)%(OutputFiles.Filename)%(OutputFiles.Extension)</LogicalName> -->
+      </EmbeddedResource>
+    </ItemGroup>
+    <Message Importance="High" Text="Embedding: @(OutputFiles->'%(Filename)%(Extension)', ', ')" />
+  </Target>
 </Project>
