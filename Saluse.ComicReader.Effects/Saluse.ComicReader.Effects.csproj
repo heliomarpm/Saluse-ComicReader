@@ -226,6 +226,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <!-- <ItemGroup> -->
+    <!-- <EmbeddedResource Include="Test.txt" /> -->
+  <!-- </ItemGroup> -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.HLSL.CSharpVB.1.0.1\build\Microsoft.HLSL.CSharpVB.targets" Condition="Exists('..\packages\Microsoft.HLSL.CSharpVB.1.0.1\build\Microsoft.HLSL.CSharpVB.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -234,30 +237,57 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.HLSL.CSharpVB.1.0.1\build\Microsoft.HLSL.CSharpVB.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.HLSL.CSharpVB.1.0.1\build\Microsoft.HLSL.CSharpVB.targets'))" />
   </Target>
-  <!--<Target Name="EffectCompile" Condition="'@(Effect)' != '' ">
-    <PixelShaderCompile Sources="@(Effect)">
-      <Output TaskParameter="Outputs" ItemName="Resource" />
-    </PixelShaderCompile>
-  </Target>-->
-  <!--<PropertyGroup>
-    -->
-  <!-- Add effect compilation to the PrepareResourcesDependsOn so that the effect fx  get compiled before resources are collected -->
-  <!--
-    <PrepareResourcesDependsOn>EffectCompile;$(PrepareResourcesDependsOn)</PrepareResourcesDependsOn>
-  </PropertyGroup>-->
-  <Target Name="EmbedShaders" AfterTargets="FxCompile">
+  <!-- <Target Name="EmbedShaders" AfterTargets="FxCompile"> -->
+  <Target Name="EmbedShaders">
     <!-- <ItemGroup> -->
     <!-- <_IgnoreRecursion Include="$(IgnoreRecursion)" /> -->
     <!-- </ItemGroup> -->
     <!-- <CreateItem Include="$(TargetDir)\**\*.*"> -->
-    <CreateItem Include="$(IntermediateOutputPath)\**\*.cso">
-      <Output TaskParameter="Include" ItemName="OutputFiles" />
-    </CreateItem>
+    <!-- <CreateItem Include="$(IntermediateOutputPath)\**\*.cso"> -->
+    <!-- <Output TaskParameter="Include" ItemName="OutputFiles" /> -->
+    <!-- </CreateItem> -->
     <ItemGroup>
-      <EmbeddedResource Include="@(OutputFiles)">
+      <!-- <EmbeddedResource Include="@(OutputFiles)"> -->
+      <EmbeddedResource Include="@(_FxCompile->'%(ObjectFileOutput)')">
         <!-- <LogicalName>%(OutputFiles.DestinationSubDirectory)%(OutputFiles.Filename)%(OutputFiles.Extension)</LogicalName> -->
       </EmbeddedResource>
     </ItemGroup>
-    <Message Importance="High" Text="Embedding: @(OutputFiles->'%(Filename)%(Extension)', ', ')" />
+    <!-- <Message Importance="High" Text="Embedding: @(OutputFiles->'%(Filename)%(Extension)', ', ')" /> -->
+    <Message Importance="High" Text="Embedding: @(_FxCompile->'%(ObjectFileOutput)')" />
   </Target>
+  <Target Name="TestTarget">
+    <Message Importance="High" Text="TestTarget: @(_FxCompile->'%(ObjectFileOutput)')" />
+  </Target>
+  <Target Name="BeforeResGen">
+    <Message Importance="High" Text="BeforeResGen" />
+  </Target>
+  <Target Name="AfterResGen">
+    <Message Importance="High" Text="AfterResGen" />
+  </Target>
+  <Target Name="BeforeBuild">
+	<Message Importance="High" Text="BeforeBuild" />
+  </Target>
+  <Target Name="TestEmbed">
+	<ItemGroup>
+		<EmbeddedResource Include="Test.txt" />
+	</ItemGroup>
+	<Message Importance="High" Text="TestEmbed" />
+  </Target>
+  <!-- <PropertyGroup> -->
+    <!-- <PrepareResourceNamesDependsOn> -->
+		<!-- $(PrepareResourceNamesDependsOn); -->
+		<!-- TestEmbed; -->
+		<!-- FxExport; -->
+		<!-- FxCompile; -->
+    <!-- </PrepareResourceNamesDependsOn> -->
+<!-- </PropertyGroup> -->
+<PropertyGroup>
+	<AssignTargetPathsDependsOn>
+		$(AssignTargetPathsDependsOn);
+		TestEmbed;
+		FxExport;
+		FxCompile;
+		EmbedShaders;
+	</AssignTargetPathsDependsOn>
+</PropertyGroup>
 </Project>
