@@ -224,6 +224,7 @@
     </PixelShader>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Bloom2.cso" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -238,36 +239,34 @@
     <ItemGroup>
       <EmbeddedResource Include="@(_FxCompile->'%(ObjectFileOutput)')">
         <!-- <LogicalName>%(OutputFiles.DestinationSubDirectory)%(OutputFiles.Filename)%(OutputFiles.Extension)</LogicalName> -->
-		<!-- <LogicalName>%(_FxCompile.Filename).cso</LogicalName> -->
-		<LogicalName>$([System.String]::Concat('%(_FxCompile.Filename)', '.cso').ToLower())</LogicalName>
+        <!-- <LogicalName>%(_FxCompile.Filename).cso</LogicalName> -->
+        <LogicalName>$([System.String]::Concat('%(_FxCompile.Filename)', '.cso').ToLower())</LogicalName>
       </EmbeddedResource>
     </ItemGroup>
     <!-- <Message Importance="High" Text="Embedding: @(OutputFiles->'%(Filename)%(Extension)', ', ')" /> -->
-    <Message Importance="High" Text="Embedding: @(_FxCompile->'%(ObjectFileOutput)')" />
+    <Message Importance="High" Text="Embedding Shader: %(_FxCompile.Filename)" />
   </Target>
   <Target Name="TestTarget">
     <!-- <Message Importance="High" Text="TestTarget: @(_FxCompile->'%(ObjectFileOutput)')" /> -->
-	<!-- <Message Importance="High" Text="TestTarget: %(_FxCompile.ObjectFileOutput)" /> -->
-	<!-- <Message Importance="High" Text="TestTarget: %(_FxCompile.Filename).cso" /> -->
-	<!-- <Message Importance="High" Text="TestTarget: @(%(_FxCompile.Filename)->ToLower()).cso" /> -->
-	<Message Importance="High" Text="TestTarget: $([System.String]::Concat('%(_FxCompile.Filename)', '.cso').ToLower())" />
+    <!-- <Message Importance="High" Text="TestTarget: %(_FxCompile.ObjectFileOutput)" /> -->
+    <!-- <Message Importance="High" Text="TestTarget: %(_FxCompile.Filename).cso" /> -->
+    <!-- <Message Importance="High" Text="TestTarget: @(%(_FxCompile.Filename)->ToLower()).cso" /> -->
+    <Message Importance="High" Text="TestTarget: $([System.String]::Concat('%(_FxCompile.Filename)', '.cso').ToLower())" />
   </Target>
-  
   <!-- <PropertyGroup> -->
-    <!-- <PrepareResourceNamesDependsOn> -->
-		<!-- $(PrepareResourceNamesDependsOn); -->
-		<!-- TestEmbed; -->
-		<!-- FxExport; -->
-		<!-- FxCompile; -->
-    <!-- </PrepareResourceNamesDependsOn> -->
-<!-- </PropertyGroup> -->
-<PropertyGroup>
-	<AssignTargetPathsDependsOn>
+  <!-- <PrepareResourceNamesDependsOn> -->
+  <!-- $(PrepareResourceNamesDependsOn); -->
+  <!-- TestEmbed; -->
+  <!-- FxExport; -->
+  <!-- FxCompile; -->
+  <!-- </PrepareResourceNamesDependsOn> -->
+  <!-- </PropertyGroup> -->
+  <PropertyGroup>
+    <AssignTargetPathsDependsOn>
 		$(AssignTargetPathsDependsOn);
 		FxExport;
 		FxCompile;
 		EmbedShaders;
-		<!-- TestTarget; -->
-	</AssignTargetPathsDependsOn>
-</PropertyGroup>
+		<!-- TestTarget; --></AssignTargetPathsDependsOn>
+  </PropertyGroup>
 </Project>
