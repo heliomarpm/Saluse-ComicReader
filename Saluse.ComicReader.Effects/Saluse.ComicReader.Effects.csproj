@@ -239,24 +239,19 @@
   </Target>
   <!-- <Target Name="EmbedShaders" AfterTargets="FxCompile"> -->
   <Target Name="EmbedShaders">
-    <!-- <ItemGroup> -->
-    <!-- <_IgnoreRecursion Include="$(IgnoreRecursion)" /> -->
-    <!-- </ItemGroup> -->
-    <!-- <CreateItem Include="$(TargetDir)\**\*.*"> -->
-    <!-- <CreateItem Include="$(IntermediateOutputPath)\**\*.cso"> -->
-    <!-- <Output TaskParameter="Include" ItemName="OutputFiles" /> -->
-    <!-- </CreateItem> -->
     <ItemGroup>
-      <!-- <EmbeddedResource Include="@(OutputFiles)"> -->
       <EmbeddedResource Include="@(_FxCompile->'%(ObjectFileOutput)')">
         <!-- <LogicalName>%(OutputFiles.DestinationSubDirectory)%(OutputFiles.Filename)%(OutputFiles.Extension)</LogicalName> -->
+		<LogicalName>%(_FxCompile.Filename).cso</LogicalName>
       </EmbeddedResource>
     </ItemGroup>
     <!-- <Message Importance="High" Text="Embedding: @(OutputFiles->'%(Filename)%(Extension)', ', ')" /> -->
     <Message Importance="High" Text="Embedding: @(_FxCompile->'%(ObjectFileOutput)')" />
   </Target>
   <Target Name="TestTarget">
-    <Message Importance="High" Text="TestTarget: @(_FxCompile->'%(ObjectFileOutput)')" />
+    <!-- <Message Importance="High" Text="TestTarget: @(_FxCompile->'%(ObjectFileOutput)')" /> -->
+	<!-- <Message Importance="High" Text="TestTarget: %(_FxCompile.ObjectFileOutput)" /> -->
+	<Message Importance="High" Text="TestTarget: %(_FxCompile.Filename).cso" />
   </Target>
   <Target Name="BeforeResGen">
     <Message Importance="High" Text="BeforeResGen" />
@@ -284,10 +279,10 @@
 <PropertyGroup>
 	<AssignTargetPathsDependsOn>
 		$(AssignTargetPathsDependsOn);
-		TestEmbed;
 		FxExport;
 		FxCompile;
 		EmbedShaders;
+		<!-- TestTarget; -->
 	</AssignTargetPathsDependsOn>
 </PropertyGroup>
 </Project>
