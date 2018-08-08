@@ -10,8 +10,5 @@ namespace Saluse.ComicReader.Effects
 	[ExcludeEffect]
 	public class LoFi : CRShaderEffect
 	{
-		public LoFi() : base("LoFi.ps")
-		{
-		}
 	}
 }

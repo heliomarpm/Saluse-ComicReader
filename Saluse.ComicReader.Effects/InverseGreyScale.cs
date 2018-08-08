@@ -9,8 +9,5 @@ namespace Saluse.ComicReader.Effects
 	[Description("Inverse Greyscale")]
 	public class InverseGreyScale : CRShaderEffect
 	{
-		public InverseGreyScale() : base("InverseGreyScale.ps")
-		{
-		}
 	}
 }

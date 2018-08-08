@@ -13,22 +13,22 @@ namespace Saluse.ComicReader.Effects
 	/// </summary>
 	[Description("Angle Gradient")]
 	[ExcludeEffect]
-	public class AngleGradient : ShaderEffect
-	{
+	public class AngleGradient : CRShaderEffect
+    {
 		#region Constructors
 
-		static AngleGradient()
-		{
-			_pixelShader.UriSource = Global.MakePackUri("AngleGradient.ps");
-		}
+		//static AngleGradient()
+		//{
+		//	_pixelShader.UriSource = Global.MakePackUri("AngleGradient.ps");
+		//}
 
 		public AngleGradient()
 		{
-			this.PixelShader = _pixelShader;
+			//this.PixelShader = _pixelShader;
 
 			// Update each DependencyProperty that's registered with a shader register.  This
 			// is needed to ensure the shader gets sent the proper default value.
-			UpdateShaderValue(InputProperty);
+			//UpdateShaderValue(InputProperty);
 			UpdateShaderValue(PrimaryColorProperty);
 			UpdateShaderValue(SecondaryColorProperty);
 		}
@@ -37,17 +37,17 @@ namespace Saluse.ComicReader.Effects
 
 		#region Dependency Properties
 
-		public Brush Input
-		{
-			get {
-				Brush brush = (Brush)GetValue(InputProperty);
-				return brush;
-			}
-			set {
-				Brush brush = value;
-				SetValue(InputProperty, brush);
-			}
-		}
+		//public Brush Input
+		//{
+		//	get {
+		//		Brush brush = (Brush)GetValue(InputProperty);
+		//		return brush;
+		//	}
+		//	set {
+		//		Brush brush = value;
+		//		SetValue(InputProperty, brush);
+		//	}
+		//}
 
 		/// <summary>The primary color of the gradient. </summary>
 		public Color PrimaryColor
@@ -74,11 +74,11 @@ namespace Saluse.ComicReader.Effects
 			}
 		}
 
-		// Brush-valued properties turn into sampler-property in the shader.
-		// This helper sets "ImplicitInput" as the default, meaning the default
-		// sampler is whatever the rendering of the element it's being applied to is.
-		public static readonly DependencyProperty InputProperty =
-				ShaderEffect.RegisterPixelShaderSamplerProperty("Input", typeof(AngleGradient), 0);
+		//// Brush-valued properties turn into sampler-property in the shader.
+		//// This helper sets "ImplicitInput" as the default, meaning the default
+		//// sampler is whatever the rendering of the element it's being applied to is.
+		//public static readonly DependencyProperty InputProperty =
+		//		ShaderEffect.RegisterPixelShaderSamplerProperty("Input", typeof(AngleGradient), 0);
 
 		public static readonly DependencyProperty PrimaryColorProperty = DependencyProperty.Register(
 						"PrimaryColor",
@@ -94,10 +94,10 @@ namespace Saluse.ComicReader.Effects
 
 		#endregion
 
-		#region Member Data
+		//#region Member Data
 
-		private static PixelShader _pixelShader = new PixelShader();
+		//private static PixelShader _pixelShader = new PixelShader();
 
-		#endregion
+		//#endregion
 	}
 }

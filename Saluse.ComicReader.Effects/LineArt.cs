@@ -9,8 +9,5 @@ namespace Saluse.ComicReader.Effects
 	[Description("Line Art")]
 	public class LineArt : CRShaderEffect
 	{
-		public LineArt() : base("LineArt.ps")
-		{
-		}
 	}
 }

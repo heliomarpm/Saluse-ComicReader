@@ -12,22 +12,22 @@ namespace Saluse.ComicReader.Effects
 	/// </summary>
 	[Description("B+W Print (half-tone)")]
 	[ExcludeEffect]
-	public class BWHalfTone : ShaderEffect
-	{
+	public class BWHalfTone : CRShaderEffect
+    {
 		#region Constructors
 
-		static BWHalfTone()
-		{
-			_pixelShader.UriSource = Global.MakePackUri("BWHalfTone.ps");
-		}
+		//static BWHalfTone()
+		//{
+		//	_pixelShader.UriSource = Global.MakePackUri("BWHalfTone.ps");
+		//}
 
 		public BWHalfTone()
 		{
-			this.PixelShader = _pixelShader;
+			//this.PixelShader = _pixelShader;
 
-			// Update each DependencyProperty that's registered with a shader register.  This
-			// is needed to ensure the shader gets sent the proper default value.
-			UpdateShaderValue(InputProperty);
+			//// Update each DependencyProperty that's registered with a shader register.  This
+			//// is needed to ensure the shader gets sent the proper default value.
+			//UpdateShaderValue(InputProperty);
 			UpdateShaderValue(AmplitudeMapProperty);
 
 			this.AmplitudeMap = this.CreateAmplitudeMap128();
@@ -37,17 +37,17 @@ namespace Saluse.ComicReader.Effects
 
 		#region Dependency Properties
 
-		public Brush Input
-		{
-			get { return (Brush)GetValue(InputProperty); }
-			set { SetValue(InputProperty, value); }
-		}
+		//public Brush Input
+		//{
+		//	get { return (Brush)GetValue(InputProperty); }
+		//	set { SetValue(InputProperty, value); }
+		//}
 
-		// Brush-valued properties turn into sampler-property in the shader.
-		// This helper sets "ImplicitInput" as the default, meaning the default
-		// sampler is whatever the rendering of the element it's being applied to is.
-		public static readonly DependencyProperty InputProperty =
-				ShaderEffect.RegisterPixelShaderSamplerProperty("Input", typeof(BWHalfTone), 0);
+		//// Brush-valued properties turn into sampler-property in the shader.
+		//// This helper sets "ImplicitInput" as the default, meaning the default
+		//// sampler is whatever the rendering of the element it's being applied to is.
+		//public static readonly DependencyProperty InputProperty =
+		//		ShaderEffect.RegisterPixelShaderSamplerProperty("Input", typeof(BWHalfTone), 0);
 
 
 		public static readonly DependencyProperty AmplitudeMapProperty = ShaderEffect.RegisterPixelShaderSamplerProperty("AmplitudeMap", typeof(BWHalfTone), 1);
@@ -59,11 +59,11 @@ namespace Saluse.ComicReader.Effects
 
 		#endregion
 
-		#region Member Data
+		//#region Member Data
 
-		private static PixelShader _pixelShader = new PixelShader();
+		//private static PixelShader _pixelShader = new PixelShader();
 
-		#endregion
+		//#endregion
 
 		private Brush CreateAmplitudeMap32()
 		{

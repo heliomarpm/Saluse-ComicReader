@@ -11,8 +11,5 @@ namespace Saluse.ComicReader.Effects
 	[ExcludeEffect]
 	public class Test : CRShaderEffect
 	{
-		public Test() : base("Test.ps")
-		{
-		}
 	}
 }

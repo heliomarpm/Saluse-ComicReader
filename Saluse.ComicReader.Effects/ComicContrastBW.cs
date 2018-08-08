@@ -9,8 +9,5 @@ namespace Saluse.ComicReader.Effects
 	[Description("High B+W Contrast")]
 	public class ComicContrastBW : CRShaderEffect
 	{
-		public ComicContrastBW() : base("ComicContrastBW.ps")
-		{
-		}
 	}
 }

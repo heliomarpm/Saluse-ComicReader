@@ -10,8 +10,5 @@ namespace Saluse.ComicReader.Effects
 	[Description("Sharpen")]
 	public class Sharpen : CRShaderEffect
 	{
-		public Sharpen() : base("Sharpen.ps")
-		{
-		}
 	}
 }

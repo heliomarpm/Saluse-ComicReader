@@ -10,8 +10,5 @@ namespace Saluse.ComicReader.Effects
 	[Description("Gaussian Blur")]
 	public class Gaussian : CRShaderEffect
 	{
-		public Gaussian() : base("Gaussian.ps")
-		{
-		}
 	}
 }

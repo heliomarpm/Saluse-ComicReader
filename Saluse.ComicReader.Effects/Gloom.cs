@@ -10,8 +10,5 @@ namespace Saluse.ComicReader.Effects
 	[Description("Gloom")]
 	public class Gloom : CRShaderEffect
 	{
-		public Gloom() : base("Gloom.ps")
-		{
-		}
 	}
 }

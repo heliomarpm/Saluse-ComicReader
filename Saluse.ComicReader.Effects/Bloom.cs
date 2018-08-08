@@ -10,8 +10,5 @@ namespace Saluse.ComicReader.Effects
 	[Description("Bloom")]
 	public class Bloom : CRShaderEffect
 	{
-		public Bloom() : base("Bloom.ps")
-		{
-		}
 	}
 }

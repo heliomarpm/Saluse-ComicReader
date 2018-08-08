@@ -29,10 +29,10 @@ namespace Saluse.ComicReader.Application.Managers
 			// Get all types for the Effects assembly. Only return types that inherit from ShaderEffect type
 			// and also does not have an ExcludeEffect attribute
 			_shaderEffectTypes = assembly
-														.GetTypes()
-														.Where(x => x.IsSubclassOf(shaderEffectType) && !x.CustomAttributes.Any(attribute => attribute.AttributeType.Name == "ExcludeEffectAttribute"))
-														.OrderBy(x => x.Name)
-														.ToArray();
+			    .GetTypes()
+			    .Where(x => x.IsSubclassOf(shaderEffectType) && !x.CustomAttributes.Any(attribute => attribute.AttributeType.Name == "ExcludeEffectAttribute"))
+			    .OrderBy(x => x.Name)
+			    .ToArray();
 		}
 
 		public ShaderEffect GetShaderEffect(int index)

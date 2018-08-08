@@ -8,47 +8,47 @@ namespace Saluse.ComicReader.Effects
 {
 	[Description("Contrast")]
 	[ExcludeEffect]
-	public class ComicContrast : ShaderEffect
-	{
-		#region Constructors
+	public class ComicContrast : CRShaderEffect
+    {
+		//#region Constructors
 
-		static ComicContrast()
-		{
-			_pixelShader.UriSource = Global.MakePackUri("ComicContrast.ps");
-		}
+		//static ComicContrast()
+		//{
+		//	_pixelShader.UriSource = Global.MakePackUri("ComicContrast.ps");
+		//}
 
-		public ComicContrast()
-		{
-			this.PixelShader = _pixelShader;
+		//public ComicContrast()
+		//{
+		//	this.PixelShader = _pixelShader;
 
-			// Update each DependencyProperty that's registered with a shader register.  This
-			// is needed to ensure the shader gets sent the proper default value.
-			UpdateShaderValue(InputProperty);
-		}
+		//	// Update each DependencyProperty that's registered with a shader register.  This
+		//	// is needed to ensure the shader gets sent the proper default value.
+		//	UpdateShaderValue(InputProperty);
+		//}
 
-		#endregion
+		//#endregion
 
-		#region Dependency Properties
+		//#region Dependency Properties
 
-		public Brush Input
-		{
-			get { return (Brush)GetValue(InputProperty); }
-			set { SetValue(InputProperty, value); }
-		}
+		//public Brush Input
+		//{
+		//	get { return (Brush)GetValue(InputProperty); }
+		//	set { SetValue(InputProperty, value); }
+		//}
 
-		// Brush-valued properties turn into sampler-property in the shader.
-		// This helper sets "ImplicitInput" as the default, meaning the default
-		// sampler is whatever the rendering of the element it's being applied to is.
-		public static readonly DependencyProperty InputProperty =
-				ShaderEffect.RegisterPixelShaderSamplerProperty("Input", typeof(ComicContrast), 0);
+		//// Brush-valued properties turn into sampler-property in the shader.
+		//// This helper sets "ImplicitInput" as the default, meaning the default
+		//// sampler is whatever the rendering of the element it's being applied to is.
+		//public static readonly DependencyProperty InputProperty =
+		//		ShaderEffect.RegisterPixelShaderSamplerProperty("Input", typeof(ComicContrast), 0);
 
-		#endregion
+		//#endregion
 
-		#region Member Data
+		//#region Member Data
 
-		private static PixelShader _pixelShader = new PixelShader();
+		//private static PixelShader _pixelShader = new PixelShader();
 
-		#endregion
+		//#endregion
 
 	}
 }

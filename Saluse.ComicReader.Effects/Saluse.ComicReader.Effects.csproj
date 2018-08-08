@@ -226,9 +226,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <!-- <ItemGroup> -->
-    <!-- <EmbeddedResource Include="Test.txt" /> -->
-  <!-- </ItemGroup> -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.HLSL.CSharpVB.1.0.1\build\Microsoft.HLSL.CSharpVB.targets" Condition="Exists('..\packages\Microsoft.HLSL.CSharpVB.1.0.1\build\Microsoft.HLSL.CSharpVB.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -237,12 +234,12 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.HLSL.CSharpVB.1.0.1\build\Microsoft.HLSL.CSharpVB.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.HLSL.CSharpVB.1.0.1\build\Microsoft.HLSL.CSharpVB.targets'))" />
   </Target>
-  <!-- <Target Name="EmbedShaders" AfterTargets="FxCompile"> -->
   <Target Name="EmbedShaders">
     <ItemGroup>
       <EmbeddedResource Include="@(_FxCompile->'%(ObjectFileOutput)')">
         <!-- <LogicalName>%(OutputFiles.DestinationSubDirectory)%(OutputFiles.Filename)%(OutputFiles.Extension)</LogicalName> -->
-		<LogicalName>%(_FxCompile.Filename).cso</LogicalName>
+		<!-- <LogicalName>%(_FxCompile.Filename).cso</LogicalName> -->
+		<LogicalName>$([System.String]::Concat('%(_FxCompile.Filename)', '.cso').ToLower())</LogicalName>
       </EmbeddedResource>
     </ItemGroup>
     <!-- <Message Importance="High" Text="Embedding: @(OutputFiles->'%(Filename)%(Extension)', ', ')" /> -->
@@ -251,23 +248,11 @@
   <Target Name="TestTarget">
     <!-- <Message Importance="High" Text="TestTarget: @(_FxCompile->'%(ObjectFileOutput)')" /> -->
 	<!-- <Message Importance="High" Text="TestTarget: %(_FxCompile.ObjectFileOutput)" /> -->
-	<Message Importance="High" Text="TestTarget: %(_FxCompile.Filename).cso" />
+	<!-- <Message Importance="High" Text="TestTarget: %(_FxCompile.Filename).cso" /> -->
+	<!-- <Message Importance="High" Text="TestTarget: @(%(_FxCompile.Filename)->ToLower()).cso" /> -->
+	<Message Importance="High" Text="TestTarget: $([System.String]::Concat('%(_FxCompile.Filename)', '.cso').ToLower())" />
   </Target>
-  <Target Name="BeforeResGen">
-    <Message Importance="High" Text="BeforeResGen" />
-  </Target>
-  <Target Name="AfterResGen">
-    <Message Importance="High" Text="AfterResGen" />
-  </Target>
-  <Target Name="BeforeBuild">
-	<Message Importance="High" Text="BeforeBuild" />
-  </Target>
-  <Target Name="TestEmbed">
-	<ItemGroup>
-		<EmbeddedResource Include="Test.txt" />
-	</ItemGroup>
-	<Message Importance="High" Text="TestEmbed" />
-  </Target>
+  
   <!-- <PropertyGroup> -->
     <!-- <PrepareResourceNamesDependsOn> -->
 		<!-- $(PrepareResourceNamesDependsOn); -->

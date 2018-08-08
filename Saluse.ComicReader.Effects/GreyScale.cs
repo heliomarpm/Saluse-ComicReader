@@ -9,8 +9,5 @@ namespace Saluse.ComicReader.Effects
 	[Description("Standard Greyscale")]
 	public class GreyScale : CRShaderEffect
 	{
-		public GreyScale() : base("GreyScale.ps")
-		{
-		}
 	}
 }

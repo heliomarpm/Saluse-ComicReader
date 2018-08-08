@@ -9,8 +9,5 @@ namespace Saluse.ComicReader.Effects
 	[Description("Devibe")]
 	public class Devibe : CRShaderEffect
 	{
-		public Devibe() : base("Devibe.ps")
-		{
-		}
 	}
 }
