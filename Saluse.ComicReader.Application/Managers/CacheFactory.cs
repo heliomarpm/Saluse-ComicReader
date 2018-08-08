@@ -27,11 +27,11 @@ namespace Saluse.ComicReader.Application.Managers
 		/// <returns></returns>
 		public static ICacheManager GetCacheManager(IImageManager imageManager, int initialIndex, CacheProgressCallback cacheProgressCallback = null)
 		{
-			return new NullCacheManager(imageManager, initialIndex, cacheProgressCallback);
+			//return new NullCacheManager(imageManager, initialIndex, cacheProgressCallback);
 
 			//return new FullCacheManager(imageManager, initialIndex, cacheProgressCallback);
 
-			//return new SlidingCacheManager(imageManager, initialIndex, cacheProgressCallback);
+			return new SlidingCacheManager(imageManager, initialIndex, cacheProgressCallback);
 		}
 
 		/// <summary>
