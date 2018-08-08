@@ -10,7 +10,7 @@ namespace Saluse.ComicReader.Effects
 		public static Uri MakePackUri(string relativeFile)
 		{
 			string uriString = "pack://application:,,,/" + AssemblyShortName + ";component/" + relativeFile;
-			return new Uri(uriString);
+            return new Uri(uriString);
 		}
 
 		private static string AssemblyShortName

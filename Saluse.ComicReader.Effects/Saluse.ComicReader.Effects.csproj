@@ -224,8 +224,10 @@
     </PixelShader>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Bloom2.cso" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="File Must Be Included as Resource.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.HLSL.CSharpVB.1.0.1\build\Microsoft.HLSL.CSharpVB.targets" Condition="Exists('..\packages\Microsoft.HLSL.CSharpVB.1.0.1\build\Microsoft.HLSL.CSharpVB.targets')" />
@@ -235,38 +237,34 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.HLSL.CSharpVB.1.0.1\build\Microsoft.HLSL.CSharpVB.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.HLSL.CSharpVB.1.0.1\build\Microsoft.HLSL.CSharpVB.targets'))" />
   </Target>
-  <Target Name="EmbedShaders">
-    <ItemGroup>
-      <EmbeddedResource Include="@(_FxCompile->'%(ObjectFileOutput)')">
-        <!-- <LogicalName>%(OutputFiles.DestinationSubDirectory)%(OutputFiles.Filename)%(OutputFiles.Extension)</LogicalName> -->
-        <!-- <LogicalName>%(_FxCompile.Filename).cso</LogicalName> -->
-        <LogicalName>$([System.String]::Concat('%(_FxCompile.Filename)', '.cso').ToLower())</LogicalName>
-      </EmbeddedResource>
-    </ItemGroup>
-    <!-- <Message Importance="High" Text="Embedding: @(OutputFiles->'%(Filename)%(Extension)', ', ')" /> -->
-    <Message Importance="High" Text="Embedding Shader: %(_FxCompile.Filename)" />
+  <!--
+	Target copied from Microsoft.WinFX.targets.
+	Note: any manually added files set as "Resource" will not be embedded since this Target
+	will overwrite the previously generated '/obj/debug/Saluse.ComicReader.Effects.g.resources" file.
+	
+	This is done because the WinFX (WPF) targets run very early on in the build process but
+	the 'Microsoft.HLSL.CSharpVB.targets' which build the .fx files into compiled shaders run later.
+	
+	So the resources have to be added after this HLSL build step.
+	
+	Note: The compiled shaders cannot be added as an EmbeddedResource because WPF resource loading using the "pack://" URI will not
+	located the resource. It has to be embedded specifically as a Resource.
+    -->
+  <Target Name="EmbedWPFShaders">
+    <ResourcesGenerator ResourceFiles="@(_FxCompile->'%(ObjectFileOutput)')" OutputPath="$(IntermediateOutputPath)" OutputResourcesFile="$(IntermediateOutputPath)$(_ResourceNameInMainAssembly)" Condition="'@(MainEmbeddedFiles)' != ''">
+      <!-- Put the generated files in item FileWrites so that they can be cleaned up appropriately in a next Rebuild -->
+      <Output ItemName="FileWrites" TaskParameter="OutputResourcesFile" />
+    </ResourcesGenerator>
   </Target>
   <Target Name="TestTarget">
-    <!-- <Message Importance="High" Text="TestTarget: @(_FxCompile->'%(ObjectFileOutput)')" /> -->
-    <!-- <Message Importance="High" Text="TestTarget: %(_FxCompile.ObjectFileOutput)" /> -->
-    <!-- <Message Importance="High" Text="TestTarget: %(_FxCompile.Filename).cso" /> -->
-    <!-- <Message Importance="High" Text="TestTarget: @(%(_FxCompile.Filename)->ToLower()).cso" /> -->
     <Message Importance="High" Text="TestTarget: $([System.String]::Concat('%(_FxCompile.Filename)', '.cso').ToLower())" />
   </Target>
-  <!-- <PropertyGroup> -->
-  <!-- <PrepareResourceNamesDependsOn> -->
-  <!-- $(PrepareResourceNamesDependsOn); -->
-  <!-- TestEmbed; -->
-  <!-- FxExport; -->
-  <!-- FxCompile; -->
-  <!-- </PrepareResourceNamesDependsOn> -->
-  <!-- </PropertyGroup> -->
   <PropertyGroup>
     <AssignTargetPathsDependsOn>
 		$(AssignTargetPathsDependsOn);
 		FxExport;
 		FxCompile;
-		EmbedShaders;
+		EmbedWPFShaders
 		<!-- TestTarget; --></AssignTargetPathsDependsOn>
   </PropertyGroup>
 </Project>

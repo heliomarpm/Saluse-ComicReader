@@ -1,0 +1,2 @@
+﻿This file must be embedded as a "Resource" for the compiled pixel shaders to be also embedded.
+See this project's .csproj source xml build Target 'EmbedWPFShaders'
