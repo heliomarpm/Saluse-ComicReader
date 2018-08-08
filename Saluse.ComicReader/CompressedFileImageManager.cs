@@ -1,6 +1,6 @@
-﻿using SharpCompress.Archive;
-using SharpCompress.Archive.Rar;
-using SharpCompress.Archive.Zip;
+﻿using SharpCompress.Archives;
+using SharpCompress.Archives.Rar;
+using SharpCompress.Archives.Zip;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -19,7 +19,7 @@ namespace Saluse.ComicReader
 		//TODO: move image capabilities to a separate class/utilities as this is based on .NET and not the actual folder/file structures
 		private static readonly string[] SUPPORTED_IMAGETYPES = FolderImageManager.SUPPORTED_FILETYPES;
 
-		private IArchive _archive;
+        private IArchive _archive;
 		private IList<IArchiveEntry> _entries;
 		private string _filePath;
 
@@ -27,7 +27,7 @@ namespace Saluse.ComicReader
 		{
 			_filePath = filePath;
 			var fileExtension = Path.GetExtension(filePath).ToLower();
-			_archive = SharpCompress.Archive.ArchiveFactory.Open(filePath);
+			_archive = ArchiveFactory.Open(filePath);
 
 			LoadEntries();
 		}
@@ -54,8 +54,8 @@ namespace Saluse.ComicReader
 			// Entries are sorted by natural sort where string numbers in the filename are treated as integer numbers
 			_entries = _archive.Entries
 				.Where(x => !x.IsDirectory)
-				.Where(x => SUPPORTED_IMAGETYPES.Contains(Path.GetExtension(x.FilePath).ToLower()))
-				.OrderBy(x => x.FilePath, Utility.NaturalStringComparer)
+				.Where(x => SUPPORTED_IMAGETYPES.Contains(Path.GetExtension(x.Key).ToLower()))
+				.OrderBy(x => x.Key, Utility.NaturalStringComparer)
 				.ToArray();
 		}
 
@@ -98,7 +98,7 @@ namespace Saluse.ComicReader
 		{
 			this.UseImageStream(index, (fileStream, filename, displayName) =>
 			{
-				var image = new Bitmap(fileStream);
+				var image = new Bitmap(fileStream, true);
 				action(image, filename);
 			});
 		}
@@ -108,7 +108,7 @@ namespace Saluse.ComicReader
 			var entry = _entries[index];
 			using (var stream = entry.OpenEntryStream())
 			{
-				action(stream, Path.GetFileName(entry.FilePath), this.DisplayName);
+				action(stream, Path.GetFileName(entry.Key), this.DisplayName);
 			}
 		}
 	}

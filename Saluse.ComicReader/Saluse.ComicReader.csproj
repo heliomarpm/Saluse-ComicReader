@@ -54,6 +54,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SharpCompress, Version=0.22.0.0, Culture=neutral, PublicKeyToken=afb0a02973931d96, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpCompress.0.22.0\lib\net45\SharpCompress.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -79,10 +82,9 @@
       <Project>{8bdbdeec-cab1-4c0b-86c2-7b0d0d3fe363}</Project>
       <Name>Ghostscript.NET</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SharpCompress\SharpCompress\SharpCompress.csproj">
-      <Project>{10a689cf-76a2-4a4f-96e4-553c33398438}</Project>
-      <Name>SharpCompress</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

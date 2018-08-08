@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saluse.ComicReader.Application", "Saluse.ComicReader.Application\Saluse.ComicReader.Application.csproj", "{8ED649EB-8476-40B0-B04A-D72F60D31D2B}"
 EndProject
@@ -10,8 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saluse.ComicReader.Effects", "Saluse.ComicReader.Effects\Saluse.ComicReader.Effects.csproj", "{EDB5E8A6-830C-4EA0-B309-C35019ABA183}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ghostscript.NET", "Ghostscript.NET\Ghostscript.NET\Ghostscript.NET.csproj", "{8BDBDEEC-CAB1-4C0B-86C2-7B0D0D3FE363}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpCompress", "SharpCompress\SharpCompress\SharpCompress.csproj", "{10A689CF-76A2-4A4F-96E4-553C33398438}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8B5758A1-DCF2-4100-877D-A42AD8466AB5}"
 	ProjectSection(SolutionItems) = preProject
@@ -71,18 +69,11 @@ Global
 		{8BDBDEEC-CAB1-4C0B-86C2-7B0D0D3FE363}.Release|x64.Build.0 = Release|x64
 		{8BDBDEEC-CAB1-4C0B-86C2-7B0D0D3FE363}.Release|x86.ActiveCfg = Release|x86
 		{8BDBDEEC-CAB1-4C0B-86C2-7B0D0D3FE363}.Release|x86.Build.0 = Release|x86
-		{10A689CF-76A2-4A4F-96E4-553C33398438}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{10A689CF-76A2-4A4F-96E4-553C33398438}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{10A689CF-76A2-4A4F-96E4-553C33398438}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{10A689CF-76A2-4A4F-96E4-553C33398438}.Debug|x86.ActiveCfg = Debug|x86
-		{10A689CF-76A2-4A4F-96E4-553C33398438}.Debug|x86.Build.0 = Debug|x86
-		{10A689CF-76A2-4A4F-96E4-553C33398438}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{10A689CF-76A2-4A4F-96E4-553C33398438}.Release|Any CPU.Build.0 = Release|Any CPU
-		{10A689CF-76A2-4A4F-96E4-553C33398438}.Release|x64.ActiveCfg = Release|Any CPU
-		{10A689CF-76A2-4A4F-96E4-553C33398438}.Release|x86.ActiveCfg = Release|x86
-		{10A689CF-76A2-4A4F-96E4-553C33398438}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8037D748-F6D3-4209-8EEC-1953E96D93CD}
 	EndGlobalSection
 EndGlobal
