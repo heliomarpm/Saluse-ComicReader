@@ -97,6 +97,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChromaticAberration.cs" />
+    <Compile Include="Film.cs" />
     <Compile Include="Gaussian.cs" />
     <Compile Include="Gloom.cs" />
     <Compile Include="ComicContrast.cs" />
@@ -108,9 +110,14 @@
     <Compile Include="Animated.cs" />
     <Compile Include="CRShaderEffect.cs" />
     <Compile Include="Devibe.cs" />
+    <Compile Include="Inverse.cs" />
     <Compile Include="InverseGreyScale.cs" />
     <Compile Include="LineArt.cs" />
+    <Compile Include="LineArtInverse.cs" />
+    <Compile Include="Noise.cs" />
+    <Compile Include="Sepia.cs" />
     <Compile Include="Sharpen.cs" />
+    <Compile Include="Snyder.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="LoFi.cs" />
     <Compile Include="The80s.cs" />
@@ -228,6 +235,29 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="File Must Be Included as Resource.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <PixelShader Include="ChromaticAberration.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
+    <PixelShader Include="Film.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
+    <PixelShader Include="Inverse.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
+    <PixelShader Include="LineArtInverse.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
+    <PixelShader Include="Noise.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
+    <PixelShader Include="Sepia.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
+    <PixelShader Include="Snyder.fx">
+      <ShaderModel>3_0</ShaderModel>
+    </PixelShader>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.HLSL.CSharpVB.1.0.1\build\Microsoft.HLSL.CSharpVB.targets" Condition="Exists('..\packages\Microsoft.HLSL.CSharpVB.1.0.1\build\Microsoft.HLSL.CSharpVB.targets')" />
