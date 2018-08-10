@@ -27,12 +27,14 @@ namespace Saluse.ComicReader
 		public PDFImageManager(string filePath)
 		{
 			_filePath = filePath;
-			var fileExtension = Path.GetExtension(filePath).ToLower();
 
-			GhostscriptVersionInfo ghostscriptVersionInfo = GhostscriptVersionInfo.GetLastInstalledVersion(GhostscriptLicense.GPL, GhostscriptLicense.GPL);
-			_ghostscriptRasterizer = new GhostscriptRasterizer();
-			_ghostscriptRasterizer.Open(filePath, ghostscriptVersionInfo, false);
-			_imageCount = _ghostscriptRasterizer.PageCount;
+            // Load the correct version of the distributed GhostScript dll.
+            var ghostScriptDllName = Environment.Is64BitProcess ? "gsdll64.dll" : "gsdll32.dll";
+            GhostscriptVersionInfo ghostscriptVersionInfo = new GhostscriptVersionInfo("lib\\" + ghostScriptDllName);
+
+            _ghostscriptRasterizer = new GhostscriptRasterizer();
+            _ghostscriptRasterizer.Open(filePath, ghostscriptVersionInfo, false);
+            _imageCount = _ghostscriptRasterizer.PageCount;
 
 			var graphics = System.Drawing.Graphics.FromHwnd(IntPtr.Zero);
 			DPIX = (int)(graphics.DpiX * RESOLUTION_RATIO);
