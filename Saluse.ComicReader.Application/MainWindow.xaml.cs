@@ -629,10 +629,10 @@ namespace Saluse.ComicReader.Application
 
 			//debug: for debugging release version
 			//File.AppendAllText(@"c:\temp\comicreader.log", message + "\r\n");
-			
+
 			_messageStoryboard.Begin();
 		}
-		
+
 		public void Initialise(string filePath)
 		{
 			UtilityManager.Dispatcher = Dispatcher;
@@ -647,7 +647,7 @@ namespace Saluse.ComicReader.Application
 			progressScrollBar.Opacity = 0;
 
 			_explorerManager = new ExplorerManager(filePath);
-			
+
 			Task.Run(() =>
 				{
 					_effectManager = new EffectManager();
@@ -657,7 +657,19 @@ namespace Saluse.ComicReader.Application
 				{
 					_storageManager = new StorageManager();
 					LoadComic(_filePath);
-				});
+
+                    if (_imageManager == null)
+                    {
+                        Dispatcher.InvokeAsync(() =>
+                        {
+                            //TODO: move this elsewhere as it relies on knowing that the window already has a specific state/style
+                            //TODO: Move to a better place than on first run. Might be the case for whenever anything fails to restore the window
+                            // otherwise the user will see a fullscreen blackness
+                            this.WindowStyle = WindowStyle.SingleBorderWindow;
+                            this.WindowState = WindowState.Normal;
+                        });
+                    }
+                });
 		}
 
 		#endregion
