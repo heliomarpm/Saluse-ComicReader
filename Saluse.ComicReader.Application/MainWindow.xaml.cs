@@ -140,6 +140,7 @@ namespace Saluse.ComicReader.Application
                     }
                     else
                     {
+                        //TODO: this code does not apply the effect when saving. Investigage why
                         var imageSource = (BitmapSource)comicImage.Source;
 
                         // Create a Rectangle shape, fill its background with the current comic image
