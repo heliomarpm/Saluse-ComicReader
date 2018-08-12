@@ -1,54 +1,61 @@
 //--------------------------------------------------------------------------------------
 // 
-// WPF ShaderEffect HLSL -- ContrastAdjustEffect
-//
+// WPF ShaderEffect HLSL -- Halfton
+// Based on: https://www.shadertoy.com/view/4t2yDt
 //--------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------
 // Sampler Inputs (Brushes, including ImplicitInput)
 //--------------------------------------------------------------------------------------
 
+#define PI 3.14159265358979323846
+#define SECTIONS 228.0
+//#define RADIUS_START 10.5
+#define RADIUS_START 8.5
+
 sampler2D implicitInputSampler : register(S0);
-sampler2D amplitudeMap : register(S1);
+
+// ddxUvDdyUv.x and ddxUvDdyUv.y contains the float of the next pixel (pixel width-height used for 0.0..1.0 pixel addressing)
+float4 ddxUvDdyUv : register(c31);
 
 
 //--------------------------------------------------------------------------------------
 // Pixel Shader
 //--------------------------------------------------------------------------------------
 
-float4 main(float2 uv : TEXCOORD) : COLOR
-{
-		float blocksX = 6144.0;
-		float blocksY = 6144.0;
-		float levels = 129.0;
-		float matrixSize = 16.0; // TODO: this is tied into amplitudeMap (creation in .cs). make using sin()
-	
-		float2 blocks = float2(blocksX, blocksY);
-		float2 blockSize = 1.0 / blocks;
-		float2 blockIndex = floor(uv / blockSize);
+float2 rotate2D(float2 _uv, float _angle) {
+	_uv -= 0.5;
+	_uv = mul(float2x2(cos(_angle), -sin(_angle), sin(_angle), cos(_angle)), _uv);
 
-		float2 amplitudeUV = float2(blockIndex.x % matrixSize, blockIndex.y % matrixSize);
-		amplitudeUV /= (matrixSize - 1.0);
-		float4 amplitude = tex2D(amplitudeMap, amplitudeUV);    
-		amplitude = amplitude * (255.0/levels);
-
-	 float4 color = tex2D(implicitInputSampler, uv);
-	 float gray = color.r * 0.3 + color.g * 0.59 + color.b *0.11;  
-	 
-	 if (gray <= amplitude.r)
-	 {
-			 color.r = 0.0;
-			 color.g = 0.0;
-			 color.b = 0.0;
-	 }
-	 else
-	 {
-			 color.r = 1.0;
-			 color.g = 1.0;
-			 color.b = 1.0;
-	 }               
-	 
-	 return color;
+	_uv += 0.5;
+	return _uv;
 }
 
+float2 tile(float2 _uv, float _zoom) {
+	_uv *= _zoom;
+	return frac(_uv);
+}
 
+float circle(in float2 _uv, in float _radius) {
+	float2 dist = _uv - 0.5;
+	return 1. - smoothstep(_radius - (_radius*0.1), _radius + (_radius*0.1), dot(dist, dist)*4.0);
+}
+
+float4 greyscale(float4 color) {
+	return (color.r * 0.3) + (color.g * 0.59) + (color.b * 0.11);
+}
+
+float4 main(float2 uv : TEXCOORD) : COLOR
+{
+	//see: https://msdn.microsoft.com/en-us/library/system.windows.media.effects.shadereffect.ddxuvddyuvregisterindex(v=vs.110).aspx
+	float2 uv_square = float2(uv.x, uv.y * (ddxUvDdyUv.w / ddxUvDdyUv.x));
+	uv_square = rotate2D(uv_square, PI*.32);
+
+	float2 uv_tiled = tile(uv_square, SECTIONS);
+
+	float4 texColor = greyscale(tex2D(implicitInputSampler, uv));
+
+	float c = circle(uv_tiled, RADIUS_START * pow(texColor.r, 4.5));
+
+	return float4(float3(c, c, c), 1.0);
+}
