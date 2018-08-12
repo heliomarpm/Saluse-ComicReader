@@ -39,6 +39,7 @@ namespace Saluse.ComicReader.Application
 		private EffectManager _effectManager = null;
 		private ViewManager _viewManager = null;
 		private ExplorerManager _explorerManager = null;
+		private SpeechManager _speechManager = null;
 		private string _filePath = string.Empty;
 		private Storyboard _messageStoryboard = null;
 		private bool _informationIsShown = false;
@@ -117,21 +118,70 @@ namespace Saluse.ComicReader.Application
 			if (IsComicLoaded())
 			{
 				_cacheManager.UseCurrentImageStream((stream, imageName, containerName) =>
-					{
-						var fileName = containerName + " - " + imageName;
-						if (!(Directory.Exists(SNAPSHOT_PATH)))
-						{
-							Directory.CreateDirectory(SNAPSHOT_PATH);
-						}
+				{
+                    var fileName = containerName + " - " + imageName;
+                    if (!(Directory.Exists(SNAPSHOT_PATH)))
+                    {
+                        Directory.CreateDirectory(SNAPSHOT_PATH);
+                    }
 
-						var filePath = IOPath.Combine(SNAPSHOT_PATH, fileName);
-						using (var fileStream = File.OpenWrite(filePath))
-						{
-							stream.CopyTo(fileStream);
-						}
+                    var shaderEffect = imageViewbox.Effect;
+                    // If no effect is applied, then save source image directly to snapshot folder
+                    // otherwise, use image with effect applied and save as jpeg to snapshot folder
+                    if (shaderEffect == null)
+                    {
+                        var filePath = IOPath.Combine(SNAPSHOT_PATH, fileName);
 
-						DisplayMessage(string.Format("Snapshot '{0}'", fileName));
-					});
+                        // No shader effects are applied so write the source image stream directly to file
+                        using (var fileStream = File.OpenWrite(filePath))
+                        {
+                            stream.CopyTo(fileStream);
+                        }
+                    }
+                    else
+                    {
+                        var imageSource = (BitmapSource)comicImage.Source;
+
+                        // Create a Rectangle shape, fill its background with the current comic image
+                        // and apply the same shader effect
+                        var rectangle = new System.Windows.Shapes.Rectangle();
+                        rectangle.Fill = new ImageBrush(imageSource);
+                        rectangle.Effect = shaderEffect;
+
+                        // Resize the Rectangle to full image size
+                        var size = new Size(imageSource.PixelWidth, imageSource.PixelHeight);
+                        rectangle.Measure(size);
+                        rectangle.Arrange(new Rect(size));
+
+                        //TODO: 96 is hardcoded for my monitor. Make it device dependent
+                        //      or find a different method to save effect on image
+                        var renderTargetBitmap = new RenderTargetBitmap(
+                            imageSource.PixelWidth,
+                            imageSource.PixelHeight,
+                            96,
+                            96,
+                            PixelFormats.Pbgra32);
+
+                        renderTargetBitmap.Render(rectangle);
+
+                        var rerenderedFilename = IOPath.GetFileNameWithoutExtension(fileName);
+                        var encoder = new JpegBitmapEncoder
+                        {
+                            QualityLevel = 95
+                        };
+
+                        var bitmapFrame = BitmapFrame.Create(renderTargetBitmap);
+                        encoder.Frames.Add(bitmapFrame);
+
+                        var filePath = IOPath.Combine(SNAPSHOT_PATH, rerenderedFilename + ".jpeg");
+                        using (var fileStream = File.OpenWrite(filePath))
+                        {
+                            encoder.Save(fileStream);
+                        }
+                    }
+
+                    DisplayMessage(string.Format("Snapshot '{0}'", fileName));
+				});
 			}
 		}
 
@@ -195,6 +245,7 @@ namespace Saluse.ComicReader.Application
 		private void DisplayComicDetails(IImageManager imageManager)
 		{
 			DisplayMessage(imageManager.DisplayName);
+            this.Title = $"Comic Reader - {imageManager.DisplayName}";
 		}
 
 		/// <summary>
@@ -294,7 +345,6 @@ namespace Saluse.ComicReader.Application
 			_explorerManager.SyncExplorer(imageManager.Location);
 		}
 
-
 		/// <summary>
 		///		Fill the border around the page numbering to show cache progress
 		///		<remarks>
@@ -384,7 +434,6 @@ namespace Saluse.ComicReader.Application
 					SyncExplorer(imageManager);
 				}
 			}
-
 		}
 
 		private void LoadPreviousComic()
@@ -395,6 +444,19 @@ namespace Saluse.ComicReader.Application
 		private void LoadNextComic()
 		{
 			LoadDifferentComic(_engine.GetNextImageManager, "No further comics");
+		}
+
+		private void LoadLastLoadedComic()
+		{
+			var lastUpdatedStorageLocation = _storageManager.GetLastUpdatedStorageLocation();			
+			if (lastUpdatedStorageLocation == null)
+			{
+				DisplayMessage("Cannot locate last loaded file");
+			}
+			else
+			{
+				LoadComic(lastUpdatedStorageLocation.Location);
+			}
 		}
 
 		private void LoadEffect(ShaderEffect shaderEffect)
@@ -532,6 +594,14 @@ namespace Saluse.ComicReader.Application
 						_viewManager.ToggleZoom();
 						break;
 
+					case Key.V:
+						ToggleSpeechRecognition();
+						break;
+
+					case Key.L:
+						LoadLastLoadedComic();
+						break;
+
 					case Key.Right:
 					case Key.Down:
 					case Key.PageDown:
@@ -607,6 +677,74 @@ namespace Saluse.ComicReader.Application
 			_viewManager.ResetMouse();
 		}
 
+		private void ToggleSpeechRecognition()
+		{
+			var isRunning = _speechManager.ToogleRecognition();
+			if (isRunning)
+			{
+				DisplayMessage("Speech recognition is running");
+			}
+			else
+			{
+				DisplayMessage("Speech recognition is off");
+			}
+		}
+
+		private void SpeechCommandRecognized(string concept, string command)
+		{
+			if (concept.Equals("General", StringComparison.InvariantCultureIgnoreCase))
+			{
+				switch (command)
+				{
+					case "zoom":
+						_viewManager.ToggleZoom();
+						break;
+
+					case "next":
+						LoadNextImage();
+						break;
+
+					case "back":
+						LoadPreviousImage();
+						break;
+
+					case "first":
+						LoadImage(() => _cacheManager.GetFirstItem());
+						break;
+
+					case "last":
+						LoadImage(() => _cacheManager.GetLastItem());
+						break;
+
+					case "window":
+						_viewManager.ToggleScreenSize();
+						break;
+
+					case "rotate":
+						_viewManager.ToggleRotation();
+						break;
+
+					case "info":
+						ToggleInformation();
+						break;
+				}
+			}
+			else if (concept.Equals("PageGoto", StringComparison.InvariantCultureIgnoreCase))
+			{
+				if (int.TryParse(command, out int pageIndex))
+				{
+					// Voice command is 1-based, page index is 0-based
+					pageIndex--;
+					if (pageIndex < 0)
+					{
+						pageIndex = 0;
+					}
+					
+					LoadImage(() => _cacheManager.GetItem(pageIndex));
+				}
+			}
+		}
+
 		#endregion
 
 		#region Public Properties
@@ -629,10 +767,10 @@ namespace Saluse.ComicReader.Application
 
 			//debug: for debugging release version
 			//File.AppendAllText(@"c:\temp\comicreader.log", message + "\r\n");
-
+			
 			_messageStoryboard.Begin();
 		}
-
+		
 		public void Initialise(string filePath)
 		{
 			UtilityManager.Dispatcher = Dispatcher;
@@ -647,6 +785,11 @@ namespace Saluse.ComicReader.Application
 			progressScrollBar.Opacity = 0;
 
 			_explorerManager = new ExplorerManager(filePath);
+
+			_speechManager = new SpeechManager()
+			{
+				CommandRecognized = SpeechCommandRecognized
+			};
 
 			Task.Run(() =>
 				{

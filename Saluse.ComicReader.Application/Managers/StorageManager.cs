@@ -89,6 +89,17 @@ namespace Saluse.ComicReader.Application.Managers
 			return storageLocation;
 		}
 
+		/// <summary>
+		///		Gets the last updated storage location.
+		/// </summary>
+		/// <returns>StorageLocation or null</returns>
+		public StorageLocation GetLastUpdatedStorageLocation()
+		{
+			return _storage.StorageLocations
+				.OrderByDescending(x => x.LastReadTicks)
+				.FirstOrDefault();
+		}
+
 		public void Save()
 		{
 			var serializer = new XmlSerializer(typeof(Storage));

@@ -66,6 +66,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Speech" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -93,6 +94,7 @@
     <Compile Include="Managers\ICacheManager.cs" />
     <Compile Include="Managers\NullCacheManager.cs" />
     <Compile Include="Managers\SlidingCacheManager.cs" />
+    <Compile Include="Managers\SpeechManager.cs" />
     <Compile Include="Managers\UtilityManager.cs" />
     <Compile Include="Managers\ViewManager.cs" />
     <Compile Include="Models\CacheItem.cs" />
