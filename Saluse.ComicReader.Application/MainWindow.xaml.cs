@@ -140,7 +140,8 @@ namespace Saluse.ComicReader.Application
                     }
                     else
                     {
-                        //TODO: this code does not apply the effect when saving. Investigage why
+                        //Note: Effect must be compiled to PixelShader version 2.0 otherwise, the effect
+                        // will be ignored when RenderTargetBitmap() is used. Limitation of WPF.
                         var imageSource = (BitmapSource)comicImage.Source;
 
                         // Create a Rectangle shape, fill its background with the current comic image

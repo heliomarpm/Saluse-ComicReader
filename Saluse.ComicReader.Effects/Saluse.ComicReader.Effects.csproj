@@ -130,7 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <PixelShader Include="GreyScale.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
   </ItemGroup>
   <ItemGroup>
@@ -147,87 +147,87 @@
   </ItemGroup>
   <ItemGroup>
     <PixelShader Include="BrightnessContrastAdjust.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
   </ItemGroup>
   <ItemGroup>
     <PixelShader Include="ComicContrast.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
   </ItemGroup>
   <ItemGroup>
     <PixelShader Include="ComicContrastBW.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
   </ItemGroup>
   <ItemGroup>
     <PixelShader Include="ComicContrastBWInvert.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
   </ItemGroup>
   <ItemGroup>
     <PixelShader Include="The80s.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
   </ItemGroup>
   <ItemGroup>
     <PixelShader Include="LoFi.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
   </ItemGroup>
   <ItemGroup>
     <PixelShader Include="Test.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
   </ItemGroup>
   <ItemGroup>
     <PixelShader Include="BWHalfTone.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
   </ItemGroup>
   <ItemGroup>
     <PixelShader Include="Bloom.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
   </ItemGroup>
   <ItemGroup>
     <PixelShader Include="Sharpen.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
   </ItemGroup>
   <ItemGroup>
     <PixelShader Include="AngleGradient.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
   </ItemGroup>
   <ItemGroup>
     <PixelShader Include="Animated.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
   </ItemGroup>
   <ItemGroup>
     <PixelShader Include="LineArt.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
   </ItemGroup>
   <ItemGroup>
     <PixelShader Include="InverseGreyScale.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
   </ItemGroup>
   <ItemGroup>
     <PixelShader Include="Devibe.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
   </ItemGroup>
   <ItemGroup>
     <PixelShader Include="Gloom.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
   </ItemGroup>
   <ItemGroup>
     <PixelShader Include="Gaussian.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
   </ItemGroup>
   <ItemGroup>
@@ -238,25 +238,25 @@
   </ItemGroup>
   <ItemGroup>
     <PixelShader Include="ChromaticAberration.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
     <PixelShader Include="Film.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
     <PixelShader Include="Inverse.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
     <PixelShader Include="LineArtInverse.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
     <PixelShader Include="Noise.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
     <PixelShader Include="Sepia.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
     <PixelShader Include="Snyder.fx">
-      <ShaderModel>3_0</ShaderModel>
+      <ShaderModel>2_0</ShaderModel>
     </PixelShader>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
